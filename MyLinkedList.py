@@ -1,19 +1,19 @@
-from Node import Node
+from MyNode import MyNode
 
 
-class LinkedList:
+class MyLinkedList:
     def __init__(self):
         self.root_value = None
 
     def add_node(self, new_data):
         if self.root_value is None:
-            self.root_value = Node(new_data)
+            self.root_value = MyNode(new_data)
             return
 
         current_node = self.root_value
         while current_node.next_value:
             current_node = current_node.next_value
-        current_node.next_value = Node(new_data)
+        current_node.next_value = MyNode(new_data)
 
     def remove_node_by_key(self, remove_key):
         if self.root_value is None:
@@ -35,7 +35,7 @@ class LinkedList:
     def print_list(self):
         print_value = self.root_value
         while print_value is not None:
-            print (print_value.data_value)
+            print print_value.data_value,
             print_value = print_value.next_value
 
     def remove_node_by_index(self, remove_index):

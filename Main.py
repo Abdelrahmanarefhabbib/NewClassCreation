@@ -1,12 +1,9 @@
-from LinkedList import LinkedList
+from DataStructuresManager import DataStructuresManager
 
-
-myLinkedList = LinkedList()
-myLinkedList.add_node(0)
-myLinkedList.add_node(1)
-myLinkedList.add_node(2)
-myLinkedList.add_node(3)
-myLinkedList.print_list()
-print
-myLinkedList.remove_node_by_index()
-myLinkedList.print_list()
+myManager = DataStructuresManager()
+myManager.create_new_linked_list()
+myManager.create_new_linked_list()
+myManager.linked_lists[0].add_node(1)
+myManager.linked_lists[0].add_node(2)
+myManager.linked_lists[0].add_node(3)
+myManager.print_all_linked_lists()
