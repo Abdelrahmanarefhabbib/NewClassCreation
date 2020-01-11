@@ -41,7 +41,7 @@ class DataStructuresManager:
         self.queues = []
 
     def create_new_stack(self, max_size=float("inf")):
-        self.queues.append(MyStack(max_size))
+        self.stacks.append(MyStack(max_size))
 
     def delete_stack(self, index=None):
         """ if no index is provided last queue will be deleted"""

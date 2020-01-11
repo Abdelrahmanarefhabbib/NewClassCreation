@@ -10,17 +10,22 @@ class MyQueue:
             raise IndexError("Queue max size reached")
 
     def dequeue(self):
-        self.queue.pop(0)
+        if len(self.queue) != 0:
+            return self.queue.pop(0)
+        else:
+            raise IndexError("Dequeue from empty queue")
 
     def front(self):
-        if len(self.queue) != 0:
+        if not self.is_empty():
             return self.queue[0]
-        return
+        else:
+            raise IndexError("Front from empty queue")
 
     def rear(self):
         if not self.is_empty():
-            return self.queue[len(self.queue) - 1]
-        return
+            return self.queue[-1]
+        else:
+            raise IndexError("Rear from empty queue")
 
     def is_empty(self):
         return len(self.queue) == 0
@@ -28,5 +33,5 @@ class MyQueue:
     def is_full(self):
         return len(self.queue) == self.max_size
 
-    def get_length(self):
+    def get_size(self):
         return len(self.queue)
