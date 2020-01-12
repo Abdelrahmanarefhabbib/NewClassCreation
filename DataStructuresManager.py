@@ -1,3 +1,4 @@
+from MyHeap import MyHeap
 from MyLinkedList import MyLinkedList
 from MyQueue import MyQueue
 from MyStack import MyStack
@@ -8,12 +9,13 @@ class DataStructuresManager:
         self.linked_lists = []
         self.queues = []
         self.stacks = []
+        self.heaps = []
 
     def create_new_linked_list(self):
         self.linked_lists.append(MyLinkedList())
 
     def delete_linked_list(self, index=None):
-        """ if no index is provided last linked list will be deleted"""
+        """ if no index is provided last element list will be deleted"""
         if index is None:
             self.linked_lists.pop()
         else:
@@ -31,7 +33,7 @@ class DataStructuresManager:
         self.queues.append(MyQueue(max_size))
 
     def delete_queue(self, index=None):
-        """ if no index is provided last queue will be deleted"""
+        """ if no index is provided last element will be deleted"""
         if index is None:
             self.queues.pop()
         else:
@@ -44,7 +46,7 @@ class DataStructuresManager:
         self.stacks.append(MyStack(max_size))
 
     def delete_stack(self, index=None):
-        """ if no index is provided last queue will be deleted"""
+        """ if no index is provided last element will be deleted"""
         if index is None:
             self.stacks.pop()
         else:
@@ -52,3 +54,16 @@ class DataStructuresManager:
 
     def delete_all_stacks(self):
         self.stacks = []
+
+    def create_new_heap(self, max_size=float("inf")):
+        self.heaps.append(MyHeap(max_size))
+
+    def delete_heap(self, index=None):
+        """ if no index is provided last element will be deleted"""
+        if index is None:
+            self.heaps.pop()
+        else:
+            self.heaps.pop(index)
+
+    def delete_all_stacks(self):
+        self.heaps = []
