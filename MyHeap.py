@@ -62,6 +62,10 @@ class MyHeap:
             child_pos = 2*pos + 1
         self.heap[pos] = data_to_shift
 
+    def get_min(self):
+        return self.heap[0]
+
+
 def get_parent_index(index):
     return (index-1)/2
 

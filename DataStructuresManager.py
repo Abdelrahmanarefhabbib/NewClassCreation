@@ -67,3 +67,8 @@ class DataStructuresManager:
 
     def delete_all_stacks(self):
         self.heaps = []
+
+    def print_all_heaps(self):
+        for heap in self.heaps:
+            heap.print_heap()
+            print
