@@ -2,11 +2,9 @@ from DataStructuresManager import DataStructuresManager
 
 
 myManager = DataStructuresManager()
-myManager.create_new_heap()
-myManager.heaps[0].push(1)
-myManager.heaps[0].push(2)
-myManager.heaps[0].push(3)
-myManager.heaps[0].push(5)
-myManager.heaps[0].push(7)
+myManager.create_new_binary_tree()
+myManager.binary_trees[0].insert(1)
+myManager.binary_trees[0].insert(2)
+myManager.binary_trees[0].insert(3)
 
-print myManager.print_all_heaps()
+myManager.print_all_binary_tree()

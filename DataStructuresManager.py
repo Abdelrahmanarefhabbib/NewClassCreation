@@ -1,3 +1,4 @@
+from MyBinaryTree import MyBinaryTree
 from MyHeap import MyHeap
 from MyLinkedList import MyLinkedList
 from MyQueue import MyQueue
@@ -10,12 +11,13 @@ class DataStructuresManager:
         self.queues = []
         self.stacks = []
         self.heaps = []
+        self.binary_trees = []
 
     def create_new_linked_list(self):
         self.linked_lists.append(MyLinkedList())
 
     def delete_linked_list(self, index=None):
-        """ if no index is provided last element list will be deleted"""
+        """ if no index is provided last element will be deleted"""
         if index is None:
             self.linked_lists.pop()
         else:
@@ -65,10 +67,29 @@ class DataStructuresManager:
         else:
             self.heaps.pop(index)
 
-    def delete_all_stacks(self):
+    def delete_all_heaps(self):
         self.heaps = []
 
     def print_all_heaps(self):
         for heap in self.heaps:
             heap.print_heap()
             print
+
+    def create_new_binary_tree(self):
+        self.binary_trees.append(MyBinaryTree())
+
+    def delete_binary_tree(self, index=None):
+        # TODO finish delete function
+        """ if no index is provided last element will be deleted"""
+        if index is None:
+            self.binary_trees.pop()
+        else:
+            self.linked_lists.pop(index)
+
+    def print_all_binary_tree(self):
+        for binary_tree in self.binary_trees:
+            binary_tree.print_tree()
+            print
+
+    def delete_all_binary_tree(self):
+        self.binary_trees = []
