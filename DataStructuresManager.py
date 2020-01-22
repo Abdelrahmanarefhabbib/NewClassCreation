@@ -1,3 +1,4 @@
+from MyAVLTree import MyAVLTree
 from MyBinaryTree import MyBinaryTree
 from MyHeap import MyHeap
 from MyLinkedList import MyLinkedList
@@ -12,6 +13,7 @@ class DataStructuresManager:
         self.stacks = []
         self.heaps = []
         self.binary_trees = []
+        self.avl_trees = []
 
     def create_new_linked_list(self):
         self.linked_lists.append(MyLinkedList())
@@ -99,3 +101,26 @@ class DataStructuresManager:
                 return True
         return False
 
+    def create_new_avl_tree(self):
+        self.avl_trees.append(MyAVLTree())
+
+    def delete_avl_tree(self, index=None):
+        """ if no index is provided last element will be deleted"""
+        if index is None:
+            self.avl_trees.pop()
+        else:
+            self.avl_trees.pop(index)
+
+    def print_all_avl_trees(self):
+        for avl_tree in self.avl_trees:
+            avl_tree.print_tree()
+            print
+
+    def delete_all_avl_trees(self):
+        self.avl_trees = []
+
+    def search_all_avl_trees(self, key):
+        for avl_tree in self.avl_trees:
+            if avl_tree.search(key):
+                return True
+        return False
