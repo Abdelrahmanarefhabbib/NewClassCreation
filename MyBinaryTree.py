@@ -10,35 +10,50 @@ class MyBinaryTree:
             self.root = MyTreeNode(new_data)
 
         else:
-            if self.root.data_value < new_data:
-                if self.root.right is None:
-                    self.root.right = MyTreeNode(new_data)
+            current_node = self.root
+            found_empty_spot = False
+            while not found_empty_spot:
+                if current_node.data_value < new_data:
+                    if current_node.right is None:
+                        current_node.right = MyTreeNode(new_data)
+                        found_empty_spot = True
+                    else:
+                        current_node = current_node.right
                 else:
-                    linked_insert(self.root.right, new_data)
-            else:
-                if self.root.left is None:
-                    self.root.left = MyTreeNode(new_data)
-                else:
-                    linked_insert(self.root.left, new_data)
+                    if current_node.left is None:
+                        current_node.left = MyTreeNode(new_data)
+                        found_empty_spot = True
+                    else:
+                        current_node = current_node.left
 
     def print_tree(self):
         pre_order_print(self.root)
 
     def search(self, key):
-        pre_order_search(self, key)
+        return pre_order_search(self.root, key)
+
+    def delete(self, key):
+        if not self.search(key):
+            return
+        else:
+            recursive_delete(self.root, key)
+
+    def get_min(self, node=None):
+        if node is None:
+            node = self.root
+        return get_min_in_sub_tree(node)
+
+    def get_max(self):
+        current_node = self.root
+        while current_node.right is not None:
+            current_node = current_node.right
+        return current_node.data_value
 
 
-def linked_insert(current_node, new_data):
-    if current_node.data_value < new_data:
-        if current_node.right is None:
-            current_node.right = MyTreeNode(new_data)
-        else:
-            linked_insert(current_node.right, new_data)
-    else:
-        if current_node.left is None:
-            current_node.left = MyTreeNode(new_data)
-        else:
-            linked_insert(current_node.left, new_data)
+def get_min_in_sub_tree(current_node):
+    while current_node.left is not None:
+        current_node = current_node.left
+    return current_node.data_value
 
 
 def pre_order_print(current_node):
@@ -56,6 +71,29 @@ def pre_order_search(current_node, key):
     else:
         if current_node.data_value == key:
             return True
-        if current_node.val > key:
+        if current_node.data_value > key:
             return pre_order_search(current_node.left, key)
         return pre_order_search(current_node.right, key)
+
+
+def recursive_delete(current_node, key):
+    if current_node is None:
+        return current_node
+
+    if key < current_node.data_value:
+        current_node.left = recursive_delete(current_node.left, key)
+
+    elif key > current_node.data_value:
+        current_node.right = recursive_delete(current_node.right, key)
+
+    else:
+        if current_node.left is None:
+            return current_node.right
+
+        elif current_node.right is None:
+            return current_node.left
+
+        current_node.data_value = get_min_in_sub_tree(current_node.right)
+        current_node.right = recursive_delete(current_node.right, current_node.data_value)
+
+    return current_node

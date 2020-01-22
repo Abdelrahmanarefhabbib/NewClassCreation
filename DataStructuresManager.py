@@ -79,17 +79,23 @@ class DataStructuresManager:
         self.binary_trees.append(MyBinaryTree())
 
     def delete_binary_tree(self, index=None):
-        # TODO finish delete function
         """ if no index is provided last element will be deleted"""
         if index is None:
             self.binary_trees.pop()
         else:
             self.linked_lists.pop(index)
 
-    def print_all_binary_tree(self):
+    def print_all_binary_trees(self):
         for binary_tree in self.binary_trees:
             binary_tree.print_tree()
             print
 
-    def delete_all_binary_tree(self):
+    def delete_all_binary_trees(self):
         self.binary_trees = []
+
+    def search_all_binary_trees(self, key):
+        for binary_tree in self.binary_trees:
+            if binary_tree.search(key):
+                return True
+        return False
+
