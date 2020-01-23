@@ -10,8 +10,53 @@ class MyAVLTree:
             self.root = MyTreeNode(new_data)
 
         else:
-            binary_tree_insert(self.root)
+            parent_of_inserted_node = binary_tree_insert(self.root)
+            parent_of_inserted_node.height = 1 + max(get_height(parent_of_inserted_node.right), get_height(parent_of_inserted_node.left))
+            balance_factor = get_balance_factor(parent_of_inserted_node)
+
+            # Case 1 - Left Left
+            if balance_factor > 1 and new_data < parent_of_inserted_node.left.data_value:
+                return self.rightRotate(parent_of_inserted_node)
+
+                # Case 2 - Right Right
+            if balance_factor < -1 and new_data > parent_of_inserted_node.right.data_value:
+                return self.leftRotate(parent_of_inserted_node)
+
+                # Case 3 - Left Right
+            if balance_factor > 1 and new_data > parent_of_inserted_node.left.data_value:
+                parent_of_inserted_node.left = self.leftRotate(parent_of_inserted_node.left)
+                return self.rightRotate(parent_of_inserted_node)
+
+                # Case 4 - Right Left
+            if balance_factor < -1 and new_data < parent_of_inserted_node.right.data_value:
+                parent_of_inserted_node.right = self.rightRotate(parent_of_inserted_node.right)
+                return self.leftRotate(parent_of_inserted_node)
+
             return
+
+    def leftRotate(self, z):
+        new_root = z.right
+        T2 = new_root.left
+        # Perform rotation
+        new_root.left = z
+        z.right = T2
+        # Update heights
+        z.height = 1 + max(self.get_height(z.left), self.get_height(z.right))
+        new_root.height = 1 + max(self.get_height(new_root.left), self.get_height(new_root.right))
+        # Return the new root
+        return new_root
+
+    def rightRotate(self, z):
+        new_root = z.left
+        T3 = new_root.right
+        # Perform rotation
+        new_root.right = z
+        z.left = T3
+        # Update heights
+        z.height = 1 + max(self.get_height(z.left), self.get_height(z.right))
+        new_root.height = 1 + max(self.get_height(new_root.left), self.get_height(new_root.right))
+        # Return the new root
+        return new_root
 
 
 def binary_tree_insert(node, new_data):
@@ -30,28 +75,8 @@ def binary_tree_insert(node, new_data):
                 found_empty_spot = True
             else:
                 current_node = current_node.left
+    return current_node
 
-    current_node.height = 1 + max(get_height(current_node.right), get_height(current_node.left))
-    balance_factor = get_balance_factor(current_node)
-
-    #   TODO implement the cases
-    # Case 1 - Left Left
-    if balance_factor > 1 and key < current_node.left.val:
-        return self.rightRotate(current_node)
-
-        # Case 2 - Right Right
-    if balance_factor < -1 and key > current_node.right.val:
-        return self.leftRotate(current_node)
-
-        # Case 3 - Left Right
-    if balance_factor > 1 and key > current_node.left.val:
-        root.left = self.leftRotate(current_node.left)
-        return self.rightRotate(current_node)
-
-        # Case 4 - Right Left
-    if balance_factor < -1 and key < current_node.right.val:
-        root.right = self.rightRotate(current_node.right)
-        return self.leftRotate(current_node)
 
 def get_height(node):
     if node is None:
