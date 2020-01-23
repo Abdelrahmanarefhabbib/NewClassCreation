@@ -5,77 +5,42 @@ class MyAVLTree:
     def __init__(self):
         self.root = None
 
+    def print_tree(self):
+        pre_order_print(self.root)
+
     def insert(self, new_data):
-        if self.root is None:
-            self.root = MyTreeNode(new_data)
+        self.root = self.insert_and_fix_tree(self.root, new_data)
 
+    def insert_and_fix_tree(self, node, new_data):
+        if node is None:
+            return MyTreeNode(new_data)
+        elif new_data < node.data_value:
+            node.left = self.insert_and_fix_tree(node.left, new_data)
         else:
-            parent_of_inserted_node = binary_tree_insert(self.root)
-            parent_of_inserted_node.height = 1 + max(get_height(parent_of_inserted_node.right), get_height(parent_of_inserted_node.left))
-            balance_factor = get_balance_factor(parent_of_inserted_node)
+            node.right = self.insert_and_fix_tree(node.right, new_data)
 
-            # Case 1 - Left Left
-            if balance_factor > 1 and new_data < parent_of_inserted_node.left.data_value:
-                return self.rightRotate(parent_of_inserted_node)
+        node.height = 1 + max(get_height(node.right), get_height(node.left))
+        balance_factor = get_balance_factor(node)
 
-                # Case 2 - Right Right
-            if balance_factor < -1 and new_data > parent_of_inserted_node.right.data_value:
-                return self.leftRotate(parent_of_inserted_node)
+        # Left Left
+        if balance_factor > 1 and new_data < node.left.data_value:
+            return rightRotate(node)
 
-                # Case 3 - Left Right
-            if balance_factor > 1 and new_data > parent_of_inserted_node.left.data_value:
-                parent_of_inserted_node.left = self.leftRotate(parent_of_inserted_node.left)
-                return self.rightRotate(parent_of_inserted_node)
+        # Left Right
+        if balance_factor > 1 and new_data > node.left.data_value:
+            node.left = leftRotate(node.left)
+            return rightRotate(node)
 
-                # Case 4 - Right Left
-            if balance_factor < -1 and new_data < parent_of_inserted_node.right.data_value:
-                parent_of_inserted_node.right = self.rightRotate(parent_of_inserted_node.right)
-                return self.leftRotate(parent_of_inserted_node)
+        # Right Right
+        if balance_factor < -1 and new_data > node.right.data_value:
+            return leftRotate(node)
 
-            return
+        # Right Left
+        if balance_factor < -1 and new_data < node.right.data_value:
+            node.right = rightRotate(node.right)
+            return leftRotate(node)
 
-    def leftRotate(self, z):
-        new_root = z.right
-        T2 = new_root.left
-        # Perform rotation
-        new_root.left = z
-        z.right = T2
-        # Update heights
-        z.height = 1 + max(self.get_height(z.left), self.get_height(z.right))
-        new_root.height = 1 + max(self.get_height(new_root.left), self.get_height(new_root.right))
-        # Return the new root
-        return new_root
-
-    def rightRotate(self, z):
-        new_root = z.left
-        T3 = new_root.right
-        # Perform rotation
-        new_root.right = z
-        z.left = T3
-        # Update heights
-        z.height = 1 + max(self.get_height(z.left), self.get_height(z.right))
-        new_root.height = 1 + max(self.get_height(new_root.left), self.get_height(new_root.right))
-        # Return the new root
-        return new_root
-
-
-def binary_tree_insert(node, new_data):
-    current_node = node
-    found_empty_spot = False
-    while not found_empty_spot:
-        if current_node.data_value < new_data:
-            if current_node.right is None:
-                current_node.right = MyTreeNode(new_data)
-                found_empty_spot = True
-            else:
-                current_node = current_node.right
-        else:
-            if current_node.left is None:
-                current_node.left = MyTreeNode(new_data)
-                found_empty_spot = True
-            else:
-                current_node = current_node.left
-    return current_node
+        return node
 
 
 def get_height(node):
@@ -84,7 +49,38 @@ def get_height(node):
     return node.height
 
 
+def leftRotate (current_node):
+    right_child = current_node.right
+    left_child_of_right_child = right_child.left
+    right_child.left = current_node
+    current_node.right = left_child_of_right_child
+
+    current_node.height = 1 + max(get_height(current_node.left), get_height(current_node.right))
+    right_child.height = 1 + max(get_height(right_child.left), get_height(right_child.right))
+    return right_child
+
+
+def rightRotate(current_node):
+    left_child = current_node.left
+    right_child_of_left_child = left_child.right
+    left_child.right = current_node
+    current_node.left = right_child_of_left_child
+
+    current_node.height = 1 + max(get_height(current_node.left), get_height(current_node.right))
+    left_child.height = 1 + max(get_height(left_child.left), get_height(left_child.right))
+    return left_child
+
+
 def get_balance_factor(node):
     if node is None:
         return 0
     return get_height(node.left) - get_height(node.right)
+
+
+def pre_order_print(current_node):
+    if current_node is not None:
+        print current_node.data_value,
+        if current_node.left is not None:
+            pre_order_print(current_node.left)
+        if current_node.right is not None:
+            pre_order_print(current_node.right)
