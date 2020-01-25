@@ -90,6 +90,20 @@ class MyAVLTree:
 
         return node
 
+    def search(self, key):
+        return pre_order_search(self.root, key)
+
+    def get_min(self, node=None):
+        if node is None:
+            node = self.root
+        return get_min_in_sub_tree(node)
+
+    def get_max(self):
+        current_node = self.root
+        while current_node.right is not None:
+            current_node = current_node.right
+        return current_node.data_value
+
 
 def get_height(node):
     if node is None:
@@ -138,3 +152,14 @@ def get_min_in_sub_tree(current_node):
     while current_node.left is not None:
         current_node = current_node.left
     return current_node.data_value
+
+
+def pre_order_search(current_node, key):
+    if current_node is None:
+        return False
+    else:
+        if current_node.data_value == key:
+            return True
+        if current_node.data_value > key:
+            return pre_order_search(current_node.left, key)
+        return pre_order_search(current_node.right, key)

@@ -4,6 +4,7 @@ from MyHeap import MyHeap
 from MyLinkedList import MyLinkedList
 from MyQueue import MyQueue
 from MyStack import MyStack
+from MyTwoThreeTree import MyTwoThreeTree
 
 
 class DataStructuresManager:
@@ -14,6 +15,7 @@ class DataStructuresManager:
         self.heaps = []
         self.binary_trees = []
         self.avl_trees = []
+        self.two_three_trees = []
 
     def create_new_linked_list(self):
         self.linked_lists.append(MyLinkedList())
@@ -122,5 +124,29 @@ class DataStructuresManager:
     def search_all_avl_trees(self, key):
         for avl_tree in self.avl_trees:
             if avl_tree.search(key):
+                return True
+        return False
+
+    def create_new_two_three_tree(self):
+        self.two_three_trees.append(MyTwoThreeTree())
+
+    def delete_two_three_tree(self, index=None):
+        """ if no index is provided last element will be deleted"""
+        if index is None:
+            self.two_three_trees.pop()
+        else:
+            self.two_three_trees.pop(index)
+
+    def print_all_two_three_trees(self):
+        for two_three_tree in self.two_three_trees:
+            two_three_tree.print_tree()
+            print
+
+    def delete_all_two_three_trees(self):
+        self.two_three_trees = []
+
+    def search_all_two_three_trees(self, key):
+        for two_three_tree in self.two_three_trees:
+            if two_three_tree.search(key):
                 return True
         return False
