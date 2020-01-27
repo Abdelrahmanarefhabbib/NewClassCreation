@@ -143,6 +143,17 @@ class MyTwoThreeTree:
     def search(self, key):
         return pre_order_search(self.root, key)
 
+    def get_min(self, node=None):
+        if node is None:
+            node = self.root
+        return get_min_in_sub_tree(node)
+
+    def get_max(self):
+        current_node = self.root
+        while current_node.right is not None:
+            current_node = current_node.right
+        return current_node.data_value
+
 
 def pre_order_print(current_node):
     if current_node is not None:
@@ -209,3 +220,5 @@ def pre_order_search(current_node, key):
             return pre_order_search(current_node.right, key)
         else:
             return pre_order_search(current_node.middle, key)
+
+
