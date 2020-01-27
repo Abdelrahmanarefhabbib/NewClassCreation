@@ -1,3 +1,0 @@
-7.	New class creation. (Programing)
-Without using the predefined similar classes or functions, create a class capable of creating and managing:
-Linked Lists, Queues, Stacks, Heaps, Binary Trees, AVL Trees and 2-3 Trees.

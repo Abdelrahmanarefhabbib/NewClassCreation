@@ -9,5 +9,6 @@ myManager.two_three_trees[0].insert(10)
 myManager.two_three_trees[0].insert(3)
 myManager.two_three_trees[0].insert(2)
 myManager.two_three_trees[0].insert(4)
+print myManager.two_three_trees[0].search(20)
 
 myManager.print_all_two_three_trees()
