@@ -10,7 +10,7 @@ class MyStack:
             raise IndexError("Stack max size reached")
 
     def pop(self):
-        return self.queue.pop()
+        return self.stack.pop()
 
     def top(self):
         if not self.is_empty():
